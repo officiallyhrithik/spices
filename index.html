@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F3EEE3">
+<title>A Letter For You ♡</title>
+
+<style>
+:root {
+  --paper: #F3EEE3;
+  --white: #FFFCF5;
+  --green: #71856B;
+  --green-light: #E3E9DC;
+  --brown: #493F35;
+  --muted: #8D8070;
+  --line: #D8CDBA;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--paper);
+  color: var(--brown);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+#garden {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.leaf {
+  position: absolute;
+  bottom: -30px;
+  color: var(--green);
+  opacity: 0;
+  animation: drift linear forwards;
+}
+
+@keyframes drift {
+  10% { opacity: .45; }
+  100% {
+    transform: translateY(-110vh) rotate(100deg);
+    opacity: 0;
+  }
+}
+
+.paper {
+  position: relative;
+  width: min(440px, 100%);
+  padding: 42px 28px 32px;
+  text-align: center;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow: 0 16px 55px #493F3510;
+  animation: openLetter .8s ease both;
+}
+
+.paper::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid #E8DFD0;
+  pointer-events: none;
+}
+
+@keyframes openLetter {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.flower {
+  font-size: 42px;
+  color: var(--green);
+  animation: sway 3s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+.eyebrow {
+  margin: 17px 0;
+  color: var(--green);
+  font: 10px Arial, sans-serif;
+  letter-spacing: 3px;
+}
+
+h1 {
+  margin: 14px 0;
+  font-size: clamp(32px, 8vw, 40px);
+  font-weight: normal;
+}
+
+h1 em {
+  color: var(--green);
+}
+
+.message {
+  max-width: 320px;
+  margin: 18px auto;
+  color: #76695B;
+  font: 14px/1.9 Arial, sans-serif;
+}
+
+.question {
+  margin: 28px 0 20px;
+  font-size: 27px;
+  font-weight: normal;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 26px 0 18px;
+}
+
+button {
+  position: relative;
+  z-index: 1;
+  padding: 13px 19px;
+  min-width: 120px;
+  font: 13px Arial, sans-serif;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+#yes {
+  color: white;
+  background: var(--green);
+  border: 1px solid var(--green);
+}
+
+#yes:hover {
+  background: #5D7258;
+  transform: translateY(-2px);
+}
+
+#no {
+  color: var(--brown);
+  background: transparent;
+  border: 1px solid #C8BBA8;
+}
+
+#no:hover {
+  background: var(--green-light);
+}
+
+.footer {
+  margin-top: 26px;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: italic;
+}
+
+#result { display: none; }
+
+#resultIcon {
+  font-size: 64px;
+  color: var(--green);
+  animation: pop .65s ease both;
+}
+
+@keyframes pop {
+  0% { transform: scale(.4); opacity: 0; }
+  75% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+#again, #back {
+  color: var(--green);
+  background: transparent;
+  border: 1px solid var(--green);
+}
+
+.shake { animation: shake .3s ease; }
+
+@keyframes shake {
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+}
+
+@media (max-width: 380px) {
+  .paper { padding: 35px 20px 28px; }
+  button { min-width: 110px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="garden"></div>
+
+<main class="paper" id="paper">
+  <section id="question">
+    <div class="flower">❀</div>
+    <div class="eyebrow">A LETTER FROM MY HEART</div>
+
+    <h1>Hey, <em>you.</em></h1>
+
+    <p class="message">
+      I've been keeping a little question in my heart.
+      Today, I finally found the courage to ask.
+    </p>
+
+    <h2 class="question">Do you love me? ♡</h2>
+
+    <p class="message">
+      Whatever your answer, thank you for being someone
+      special in my story.
+    </p>
+
+    <div class="buttons">
+      <button id="yes">Yes, I do ♡</button>
+      <button id="no">Not yet...</button>
+    </div>
+
+    <div class="footer">With love, always ♡</div>
+  </section>
+
+  <section id="result" aria-live="polite">
+    <div id="resultIcon">❀</div>
+    <div class="eyebrow" id="resultEyebrow">A LITTLE HAPPY MOMENT</div>
+    <h1 id="resultTitle">You made me smile.</h1>
+
+    <p class="message" id="resultMessage">
+      I think I'll be smiling about this for a long time.
+      Thank you for making this moment beautiful. ♡
+    </p>
+
+    <div class="footer">One little question. One precious memory.</div>
+    <button id="again">Read again ↺</button>
+  </section>
+</main>
+
+<script>
+const question = document.getElementById("question");
+const result = document.getElementById("result");
+const paper = document.getElementById("paper");
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const garden = document.getElementById("garden");
+
+let changed = false;
+let finished = false;
+
+function floatLeaf() {
+  const el = document.createElement("span");
+  el.className = "leaf";
+  el.textContent = ["✿", "♡", "❀", "·"][
+    Math.floor(Math.random() * 4)
+  ];
+  el.style.left = Math.random() * 100 + "%";
+  el.style.fontSize = (12 + Math.random() * 15) + "px";
+  el.style.animationDuration = (6 + Math.random() * 5) + "s";
+  garden.appendChild(el);
+  setTimeout(() => el.remove(), 12000);
+}
+
+function celebrate() {
+  for (let i = 0; i < 30; i++) {
+    setTimeout(floatLeaf, i * 65);
+  }
+}
+
+setInterval(() => {
+  if (garden.childElementCount < 14) floatLeaf();
+}, 1000);
+
+yes.addEventListener("click", () => {
+  if (finished) return;
+  finished = true;
+
+  question.style.display = "none";
+  result.style.display = "block";
+  document.getElementById("resultIcon").textContent = "♡";
+  document.getElementById("resultTitle").textContent =
+    "You made me smile!";
+  document.getElementById("resultMessage").textContent =
+    "I think I'll be smiling about this for a long time. " +
+    "Thank you for making this moment beautiful. ♡";
+
+  celebrate();
+});
+
+no.addEventListener("click", () => {
+  if (finished) return;
+
+  paper.classList.remove("shake");
+  void paper.offsetWidth;
+  paper.classList.add("shake");
+
+  if (!changed) {
+    changed = true;
+    no.textContent = "Maybe yes? ♡";
+    no.style.background = "#E3E9DC";
+    no.style.borderColor = "#71856B";
+    no.style.color = "#493F35";
+    floatLeaf();
+    return;
+  }
+
+  finished = true;
+  question.style.display = "none";
+  result.style.display = "block";
+
+  document.getElementById("resultIcon").textContent = "❀";
+  document.getElementById("resultEyebrow").textContent =
+    "THANK YOU FOR BEING HONEST";
+  document.getElementById("resultTitle").innerHTML =
+    "It's <em>okay.</em>";
+  document.getElementById("resultMessage").textContent =
+    "Your feelings matter, and I respect your answer. " +
+    "Thank you for hearing me out. ♡";
+});
+
+document.getElementById("again").addEventListener("click", () => {
+  location.reload();
+});
+</script>
+</body>
+</html>
